@@ -1,3 +1,4 @@
+use shared::Message;
 use std::{io::prelude::*, net::TcpStream};
 
 fn main() {

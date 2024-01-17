@@ -1,3 +1,4 @@
+use shared::Message;
 use std::{
     io::{Read, Write},
     net::TcpListener,
