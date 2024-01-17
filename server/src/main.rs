@@ -1,8 +1,14 @@
 use std::{
     io::{Read, Write},
-    net::{TcpListener, TcpStream},
+    net::TcpListener,
 };
 
-fn main() {
-    let mut listener = TcpListener::bind("127.0.0.1:19773");
+fn main() -> std::io::Result<()> {
+    let mut listener = TcpListener::bind("127.0.0.1:19773")?;
+
+    for stream in listener.incoming() {
+        dbg!(stream?);
+    }
+
+    Ok(())
 }
