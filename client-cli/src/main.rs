@@ -1,6 +1,13 @@
 use shared::Message;
 use std::{io::prelude::*, net::TcpStream};
 
-fn main() {
-    let mut stream = TcpStream::connect("127.0.0.1:19773");
+fn main() -> std::io::Result<()> {
+    let mut stream = TcpStream::connect("127.0.0.1:19773")?;
+
+    let message = Message {
+        message: "Hello, world!".to_string(),
+        id: 0,
+    };
+
+    Ok(())
 }
