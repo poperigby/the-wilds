@@ -1,15 +1,20 @@
 use shared::Message;
 use std::{
-    io::{Read, Write},
-    net::TcpListener,
+    io::{prelude::*, BufReader},
+    net::{TcpListener, TcpStream},
 };
 
 fn main() -> std::io::Result<()> {
-    let mut listener = TcpListener::bind("127.0.0.1:19773")?;
+    let listener = TcpListener::bind("127.0.0.1:19773")?;
 
     for stream in listener.incoming() {
-        dbg!(stream?);
+        handle_client(stream.unwrap());
     }
 
     Ok(())
+}
+
+fn handle_client(mut stream: TcpStream) {
+    let buf_reader = BufReader::new(&mut stream);
+    dbg!(buf_reader);
 }

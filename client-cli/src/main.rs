@@ -1,3 +1,4 @@
+use serde_json;
 use shared::Message;
 use std::{io::prelude::*, net::TcpStream};
 
@@ -8,6 +9,8 @@ fn main() -> std::io::Result<()> {
         message: "Hello, world!".to_string(),
         id: 0,
     };
+
+    stream.write(&serde_json::to_vec(&message).unwrap());
 
     Ok(())
 }
