@@ -1,6 +1,6 @@
 use shared::Message;
 use std::{
-    io::{prelude::*, BufReader},
+    io::BufReader,
     net::{TcpListener, TcpStream},
 };
 
@@ -16,5 +16,8 @@ fn main() -> std::io::Result<()> {
 
 fn handle_client(mut stream: TcpStream) {
     let buf_reader = BufReader::new(&mut stream);
-    dbg!(buf_reader);
+
+    let message: Message = serde_json::from_reader(buf_reader).unwrap();
+
+    dbg!(message);
 }
