@@ -5,4 +5,5 @@ members = [
     "client-cli",
     "client-lib",
     "server",
+    "shared"
 ]
