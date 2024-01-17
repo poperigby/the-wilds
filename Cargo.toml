@@ -1,8 +1,6 @@
-[package]
-name = "the-wilds"
-version = "0.1.0"
-edition = "2021"
+[workspace]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
+resolver = "2"
+members = [
+    "server"
+]
