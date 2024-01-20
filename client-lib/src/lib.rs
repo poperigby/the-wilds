@@ -20,6 +20,14 @@ pub enum SendDataError {
 
 impl ServerConnection {
     /// Attempt to establish a connection to a game server at the give address
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use client_lib::ServerConnection;
+    ///
+    /// let server = ServerConnection::connect("127.0.0.1:19773");
+    /// ```
     pub fn connect<A: ToSocketAddrs>(address: A) -> std::io::Result<Self> {
         Ok(ServerConnection {
             stream: TcpStream::connect(address)?,
