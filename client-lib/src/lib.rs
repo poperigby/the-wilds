@@ -4,15 +4,15 @@ use std::{
     net::{TcpStream, ToSocketAddrs},
 };
 
-pub struct Connection {
+/// A TCP connection to a game server
+pub struct ServerConnection {
     stream: TcpStream,
 }
 
-/// A TCP connection to a The Wilds server
-impl Connection {
+impl ServerConnection {
     /// Create a new connection to a server at the given address
     pub fn new<A: ToSocketAddrs>(address: A) -> std::io::Result<Self> {
-        Ok(Connection {
+        Ok(ServerConnection {
             stream: TcpStream::connect(address)?,
         })
     }

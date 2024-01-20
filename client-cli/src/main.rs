@@ -1,15 +1,15 @@
-use client_lib::Connection;
+use client_lib::ServerConnection;
 use shared::Message;
 
 fn main() -> std::io::Result<()> {
-    let connection = Connection::new("127.0.0.1:19773")?;
+    let server = ServerConnection::new("127.0.0.1:19773")?;
 
     let message = Message {
         message: "Hello, world!".to_string(),
         id: 0,
     };
 
-    connection.send_data(&message);
+    server.send_data(&message);
 
     Ok(())
 }
