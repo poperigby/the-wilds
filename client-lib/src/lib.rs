@@ -10,8 +10,8 @@ pub struct ServerConnection {
 }
 
 impl ServerConnection {
-    /// Create a new connection to a server at the given address
-    pub fn new<A: ToSocketAddrs>(address: A) -> std::io::Result<Self> {
+    /// Attempt to establish a connection to a game server at the give address
+    pub fn connect<A: ToSocketAddrs>(address: A) -> std::io::Result<Self> {
         Ok(ServerConnection {
             stream: TcpStream::connect(address)?,
         })
