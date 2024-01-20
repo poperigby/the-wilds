@@ -35,10 +35,7 @@ impl ServerConnection {
     }
 
     /// Send a serializeable struct over the connection
-    pub fn send_data<D: DeserializeOwned + Serialize>(
-        mut self,
-        data: &D,
-    ) -> Result<(), SendDataError> {
+    pub fn send<D: DeserializeOwned + Serialize>(mut self, data: &D) -> Result<(), SendDataError> {
         let json_data = &serde_json::to_vec(&data)?;
         self.stream.write_all(json_data)?;
 
