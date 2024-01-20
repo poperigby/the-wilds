@@ -9,7 +9,7 @@ fn main() -> std::io::Result<()> {
         id: 0,
     };
 
-    server.send_data(&message);
+    server.send_data(&message).unwrap();
 
     Ok(())
 }

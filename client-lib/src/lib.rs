@@ -19,7 +19,7 @@ pub enum SendDataError {
 }
 
 impl ServerConnection {
-    /// Attempt to establish a connection to a game server at the give address
+    /// Attempt to establish a connection to a game server at the give `address`.
     ///
     /// # Examples
     ///
