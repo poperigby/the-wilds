@@ -2,7 +2,7 @@
 
 resolver = "2"
 members = [
-    "client-cli",
+    "client-tui",
     "client-lib",
     "server",
     "shared"
