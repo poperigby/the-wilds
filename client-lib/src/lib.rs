@@ -1,4 +1,4 @@
-use serde::{de::DeserializeOwned, Serialize};
+use shared::Message;
 use std::{
     io::prelude::*,
     net::{TcpStream, ToSocketAddrs},
@@ -34,9 +34,9 @@ impl ServerConnection {
         })
     }
 
-    /// Send a serializeable struct over the connection
-    pub fn send<D: DeserializeOwned + Serialize>(mut self, data: &D) -> Result<(), SendDataError> {
-        let json_data = &serde_json::to_vec(&data)?;
+    /// Send a Message over the connection
+    pub fn send(mut self, message: &Message) -> Result<(), SendDataError> {
+        let json_data = &serde_json::to_vec(&message)?;
         self.stream.write_all(json_data)?;
 
         Ok(())
