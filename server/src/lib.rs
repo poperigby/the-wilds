@@ -1,3 +1,5 @@
+pub mod character_sheet;
+
 use shared::Message;
 use std::{
     io::BufReader,

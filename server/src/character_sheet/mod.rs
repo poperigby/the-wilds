@@ -1,3 +1,4 @@
+mod effect;
 mod resource;
 
 use resource::{Damage, Resource};
