@@ -36,7 +36,12 @@ impl Server {
         match message {
             Ok(m) => {
                 match m {
-                    Message::Get(get_message) => dbg!(get_message),
+                    Message::Get(get_message) => {
+                        dbg!(get_message);
+                    }
+                    Message::Error(error_message) => {
+                        dbg!(error_message);
+                    }
                 };
             }
             Err(e) => {

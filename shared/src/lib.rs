@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 pub enum Message {
     /// Request some state from the server.
     Get(GetMessage),
+    Error(ErrorMessage),
 }
 
 #[derive(Deserialize, Serialize, PartialEq, Eq, Debug)]
