@@ -1,8 +1,8 @@
 pub mod character_sheet;
 
-use shared::Message;
+use shared::{ErrorMessage, Message};
 use std::{
-    io::BufReader,
+    io::{BufReader, Write},
     net::{TcpListener, TcpStream, ToSocketAddrs},
 };
 
@@ -29,8 +29,6 @@ impl Server {
     fn handle_client(&self, mut stream: TcpStream) {
         let buf_reader = BufReader::new(&mut stream);
 
-        // TODO: Send back an error message through the stream, if we can't
-        // deserialize the Message, instead of crashing the server :|
         let message: serde_json::Result<Message> = serde_json::from_reader(buf_reader);
 
         match message {
@@ -45,7 +43,16 @@ impl Server {
                 };
             }
             Err(e) => {
-                dbg!(e);
+                // Send back an error message through the stream, if we can't
+                // deserialize the Message.
+                let error_message = Message::Error(ErrorMessage {
+                    message: e.to_string(),
+                });
+                let json_data = &serde_json::to_vec(&error_message).unwrap();
+                stream.write_all(json_data).unwrap();
+
+                // TODO: Tell which client the error comes from
+                log::error!("Error while deserializing message: {e}");
             }
         };
     }
