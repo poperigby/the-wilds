@@ -57,3 +57,13 @@ impl Server {
         };
     }
 }
+
+struct ClientConnection {
+    stream: TcpStream,
+}
+
+impl From<TcpStream> for ClientConnection {
+    fn from(stream: TcpStream) -> Self {
+        Self { stream }
+    }
+}
