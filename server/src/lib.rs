@@ -11,17 +11,19 @@ pub struct Server {
 }
 
 impl Server {
-    pub fn bind<A: ToSocketAddrs>(address: A) -> Self {
-        Server {
-            listener: TcpListener::bind(address).unwrap(),
-        }
+    pub fn bind<A: ToSocketAddrs>(address: A) -> std::io::Result<Self> {
+        Ok(Server {
+            listener: TcpListener::bind(address)?,
+        })
     }
 
     /// Begin listening for incoming connections.
-    pub fn listen(&self) {
+    pub fn listen(&self) -> Result<(), std::io::Error> {
         for stream in self.listener.incoming() {
-            self.handle_client(stream.unwrap());
+            self.handle_client(stream?);
         }
+
+        Ok(())
     }
 
     fn handle_client(&self, mut stream: TcpStream) {
