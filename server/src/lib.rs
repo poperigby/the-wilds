@@ -29,10 +29,19 @@ impl Server {
     fn handle_client(&self, mut stream: TcpStream) {
         let buf_reader = BufReader::new(&mut stream);
 
-        let message: Message = serde_json::from_reader(buf_reader).unwrap();
+        // TODO: Send back an error message through the stream, if we can't
+        // deserialize the Message, instead of crashing the server :|
+        let message: serde_json::Result<Message> = serde_json::from_reader(buf_reader);
 
         match message {
-            Message::Get(get_message) => dbg!(get_message),
+            Ok(m) => {
+                match m {
+                    Message::Get(get_message) => dbg!(get_message),
+                };
+            }
+            Err(e) => {
+                dbg!(e);
+            }
         };
     }
 }
