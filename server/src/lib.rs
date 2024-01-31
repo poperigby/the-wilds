@@ -17,6 +17,7 @@ impl Server {
         }
     }
 
+    /// Begin listening for incoming connections.
     pub fn listen(&self) {
         for stream in self.listener.incoming() {
             self.handle_client(stream.unwrap());
@@ -28,6 +29,8 @@ impl Server {
 
         let message: Message = serde_json::from_reader(buf_reader).unwrap();
 
-        dbg!(message);
+        match message {
+            Message::Get(get_message) => dbg!(get_message),
+        };
     }
 }
