@@ -1,7 +1,8 @@
 /* 
  * Base deffinition of a resorce
  */
-pub trait Resource {
+
+pub trait Resource: std::fmt::Debug {
     /// Return the current value of the resource.
     fn current(&self) -> i32;
 
@@ -10,7 +11,7 @@ pub trait Resource {
 }
 
 /* 
- * List of resources traites
+ * List of resources traits
  */
 /// A damageable resource
 pub trait Damage: Resource {
@@ -18,7 +19,7 @@ pub trait Damage: Resource {
     fn damage(self, amount: i32);
 }
 /// A spendable resource
-pub trait Spend: Resoruce {
+pub trait Spend: Resource {
     fn spend(self, amount: i32);
 }
 // A per turn generating resource?
@@ -30,17 +31,28 @@ pub trait Spend: Resoruce {
  *
  *      List of resorces
  * 
- * ========================================================================== */
+\* ========================================================================== */
  //should all defined traits be in there own files?
 /* 
  * Health
  */
+#[derive(Debug)]
 pub struct Health {
     current: i32,
     max: i32,
 }
 
-impl Health {}
+impl Health {
+    pub fn new(max: i32, current: Option<i32>) -> Self {
+        Self {
+            current: match current {
+                Some(val) => val,
+                None => max,
+            },
+            max: max,
+        }
+    }
+}
 
 impl Resource for Health {
     fn current(&self) -> i32 {

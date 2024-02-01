@@ -6,17 +6,17 @@
 //  
 // All stats are useful in both offense and defence as abilities are based on 
 // one stat and target a different one. So stats need a defined side of both. 
-
-pub struct Statblock{
+#[derive(Debug)]
+pub struct StatBlock{
     //           Full name    Attack def,    Defence def,   
-    str: i32, // Strength,    Hit hard,      take a hit,       Tank,
-    dex: i32, // Dexterity,   Hit fast,      don't get hit,    dodge
-    wis: i32, // wisdom,      Natural Power, resist dots?
-    int: i32, // Intelegence, Arcane Power,  mind over matter, Alternativly Cunning
-    cha: i32, // Charisma,    Occult Power,  
+    pub str: i32, // Strength,    Hit hard,      take a hit,       Tank,
+    pub dex: i32, // Dexterity,   Hit fast,      don't get hit,    dodge
+    pub per: i32, // perception,  Hit percisely, noticing things,   Might need a better name.
+    pub wis: i32, // wisdom,      Natural Power, resist dots?
+    pub int: i32, // Intelegence, Arcane Power,  mind over matter, Alternativly Cunning
+    pub cha: i32, // Charisma,    Occult Power,  Charm effects?
 
-    // I want something gauged twards persistion. crits
-    //per: i32, // persception, Hit percisely, block things?   Might need a better name axing this for now.
+    // I want something gauged twards persision. crits
     //
     // more medium?
     //end: i32 // endurance,   Hit even?  
