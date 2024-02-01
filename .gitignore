@@ -15,3 +15,6 @@ Cargo.lock
 
 # wasm-pack
 pkg/
+
+# NodeJS
+node_modules
