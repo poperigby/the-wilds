@@ -3,6 +3,7 @@
 resolver = "2"
 members = [
     "tui-client",
+    "web-client",
     "client-lib",
     "server",
     "shared"
