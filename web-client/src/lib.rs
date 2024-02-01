@@ -4,13 +4,20 @@ use shared::{GetMessage, Message};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
-pub fn send_message() {
-    let server = ServerConnection::connect("127.0.0.1:19773").unwrap_throw();
+pub fn send_message() -> Result<(), JsError> {
+    let server = ServerConnection::connect("0.0.0.0:19773");
 
-    let message = Message::Get(GetMessage {
-        message: "Hello, world!".to_string(),
-        id: 0,
-    });
+    match server {
+        Ok(s) => {
+            let message = Message::Get(GetMessage {
+                message: "Hello, world!".to_string(),
+                id: 0,
+            });
 
-    server.send(&message).unwrap_throw();
+            s.send(&message).expect_throw("Unable to send message");
+
+            Ok(())
+        }
+        Err(e) => Err(JsError::new(&e.to_string())),
+    }
 }
