@@ -26,6 +26,7 @@ impl Server {
         Ok(())
     }
 
+    // TODO: Handle this in ClientConnection
     fn handle_client(&self, mut stream: TcpStream) {
         let buf_reader = BufReader::new(&mut stream);
 
@@ -60,6 +61,10 @@ impl Server {
 
 struct ClientConnection {
     stream: TcpStream,
+}
+
+impl ClientConnection {
+    // fn send()
 }
 
 impl From<TcpStream> for ClientConnection {
