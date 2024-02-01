@@ -17,8 +17,8 @@ impl Server {
         })
     }
 
-    /// Begin listening for incoming connections.
-    pub fn listen(&self) -> Result<(), std::io::Error> {
+    /// Listen for incoming TCP connections.
+    pub async fn listen(&self) -> Result<(), std::io::Error> {
         for stream in self.listener.incoming() {
             self.handle_client(stream?);
         }
