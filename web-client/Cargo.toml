@@ -9,3 +9,6 @@ edition = "2021"
 shared = { path = "../shared" }
 client-lib = { path = "../client-lib" }
 wasm-bindgen = "0.2.90"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
