@@ -1,8 +1,8 @@
 pub mod character_sheet;
 
-use shared::Message;
+use shared::{ErrorMessage, Message};
 use std::{
-    io::BufReader,
+    io::{BufReader, Write},
     net::{TcpListener, TcpStream, ToSocketAddrs},
 };
 
@@ -11,23 +11,49 @@ pub struct Server {
 }
 
 impl Server {
-    pub fn bind<A: ToSocketAddrs>(address: A) -> Self {
-        Server {
-            listener: TcpListener::bind(address).unwrap(),
-        }
+    pub fn bind<A: ToSocketAddrs>(address: A) -> std::io::Result<Self> {
+        Ok(Server {
+            listener: TcpListener::bind(address)?,
+        })
     }
 
-    pub fn listen(&self) {
+    /// Begin listening for incoming connections.
+    pub fn listen(&self) -> Result<(), std::io::Error> {
         for stream in self.listener.incoming() {
-            self.handle_client(stream.unwrap());
+            self.handle_client(stream?);
         }
+
+        Ok(())
     }
 
     fn handle_client(&self, mut stream: TcpStream) {
         let buf_reader = BufReader::new(&mut stream);
 
-        let message: Message = serde_json::from_reader(buf_reader).unwrap();
+        let message: serde_json::Result<Message> = serde_json::from_reader(buf_reader);
 
-        dbg!(message);
+        match message {
+            Ok(m) => {
+                match m {
+                    Message::Get(get_message) => {
+                        dbg!(get_message);
+                    }
+                    Message::Error(error_message) => {
+                        dbg!(error_message);
+                    }
+                };
+            }
+            Err(e) => {
+                // Send back an error message through the stream, if we can't
+                // deserialize the Message.
+                let error_message = Message::Error(ErrorMessage {
+                    message: e.to_string(),
+                });
+                let json_data = &serde_json::to_vec(&error_message).unwrap();
+                stream.write_all(json_data).unwrap();
+
+                // TODO: Tell which client the error comes from
+                log::error!("Error while deserializing message: {e}");
+            }
+        };
     }
 }
