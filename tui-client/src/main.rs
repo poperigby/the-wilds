@@ -2,7 +2,7 @@ use client_lib::ServerConnection;
 use shared::{GetMessage, Message};
 
 fn main() -> std::io::Result<()> {
-    let mut server = ServerConnection::connect("127.0.0.1:19773")?;
+    let server = ServerConnection::connect("127.0.0.1:19773")?;
 
     let message = Message::Get(GetMessage {
         message: "Hello, world!".to_string(),
