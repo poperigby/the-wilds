@@ -8,7 +8,7 @@ pub fn send_message() -> Result<(), JsError> {
     let server = ServerConnection::connect("0.0.0.0:19773");
 
     match server {
-        Ok(s) => {
+        Ok(mut s) => {
             let message = Message::Get(GetMessage {
                 message: "Hello, world!".to_string(),
                 id: 0,

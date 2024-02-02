@@ -35,7 +35,7 @@ impl ServerConnection {
     }
 
     /// Send a Message over the connection
-    pub fn send(mut self, message: &Message) -> Result<(), SendDataError> {
+    pub fn send(&mut self, message: &Message) -> Result<(), SendDataError> {
         let json_data = &serde_json::to_vec(&message)?;
         self.stream.write_all(json_data)?;
 
