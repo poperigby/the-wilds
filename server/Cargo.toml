@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 async-std = { version = "1.12.0", features = ["attributes"] }
+axum = "0.7.4"
 futures = "0.3.30"
 human-panic = "1.2.3"
 log = "0.4.20"
