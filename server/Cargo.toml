@@ -6,12 +6,10 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-async-std = { version = "1.12.0", features = ["attributes"] }
 axum = "0.7.4"
-futures = "0.3.30"
 human-panic = "1.2.3"
 log = "0.4.20"
-rayon = "1.8.1"
 serde = "1.0.195"
 serde_derive = "1.0.195"
 serde_json = "1.0.111"
+tokio = { version = "1.36.0", features = ["full"] }

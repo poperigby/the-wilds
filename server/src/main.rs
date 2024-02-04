@@ -1,5 +1,5 @@
-use async_std::main;
 use human_panic::setup_panic;
+use tokio::main;
 
 #[main]
 async fn main() {
